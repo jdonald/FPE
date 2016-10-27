@@ -1,0 +1,39 @@
+void main (
+	in	float4    iColor		: COLOR,	
+	in	float2    iTexCoord		: TEXCOORD0,
+	in	float4    iTexProj		: TEXCOORD1,
+	in	float4    uSurfPos		: TEXCOORD2,		// P = position on object surface (world coords)
+	in  float4    uSurfNorm	    : TEXCOORD3,		// N = normal at object surface (world coords)	
+
+	out	float4    oColor		: COLOR,	
+	
+	uniform float3    uCameraFrom,	
+	uniform float3	  uLightFrom,	
+	uniform float3    uLightTo,
+	uniform float3    uLightClr,
+	uniform float	  uLightAngle,		
+	uniform	sampler2D uTexture,
+	uniform float3	  uParams
+	)
+{
+	float3 uN = normalize ( uSurfNorm.xyz );				// N = surface normal (world coords)
+	float3 uV = normalize ( uCameraFrom - uSurfPos.xyz );	// V = view direction
+	float3 uL = normalize ( uLightFrom - uSurfPos.xyz );	// L = light direction from surface  
+	//float3 uH = normalize ( uL + uV );						// H = half angle
+	float3 uLD = normalize ( uLightFrom - uLightTo );		// D = light direction (to light target)
+
+	// Phong illumination
+	float diff = saturate( dot( uN.xyz, uL ));					// diff = N dot L
+	float3 uR = reflect ( -uL, uN );
+	float spec = pow ( abs( saturate( dot( uR, uV ))), 120 );		// spec = max(R dot V, 0)^a  
+	float v = 0.6 * diff + 0.4 * spec;  
+
+	// Spotlight - points outside the light cone are black
+	if ( dot ( uLD, uL ) < uLightAngle ) v = 0;
+
+	//oColor = float4 ( v*uLightClr.x, v*uLightClr.y, v*uLightClr.z, 1.0 );
+
+	//oColor = iColor + float4 ( v*uLightClr.x, v*uLightClr.y, v*uLightClr.z, 1.0 );
+	//oColor = iColor*v*float4(uLightClr,1);
+	oColor = float4(abs(uN.x), abs(uN.y), abs(uN.z), 1.0 );
+}

@@ -1,0 +1,25 @@
+void main (
+	in	float4	  iPosLocal	: POSITION,
+	in	float3    iNormLocal : NORMAL,
+	in  float2    iTexCoord : TEXCOORD0,
+	in  float4	  iColor	: COLOR,
+	
+	out	float4    oColor	: COLOR,
+	out float4	  oPos		: POSITION,
+	out float2    oTexCoord : TEXCOORD0,
+	out float4    oTexProj  : TEXCOORD1,
+	out	float4    oSurfPos	: TEXCOORD2,
+	out	float4    oSurfNorm : TEXCOORD3,
+	
+	uniform	float4x4  uModelViewProj,
+	uniform float4x4  uModel
+	)
+{
+  oPos = mul( uModelViewProj, iPosLocal );  
+  
+  oSurfPos =  mul( uModel, iPosLocal );
+  oSurfNorm = mul( uModel, float4(iNormLocal, 0) );
+
+  oTexCoord = iTexCoord;
+  oColor = iColor;
+}

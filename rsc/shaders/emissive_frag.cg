@@ -1,0 +1,33 @@
+void main (
+	in	float4    iColor		: COLOR,	
+	in	float2    iTexCoord		: TEXCOORD0,
+	in	float4    iTexProj		: TEXCOORD1,
+	in	float4    uSurfPos		: TEXCOORD2,		// P = position on object surface (world coords)
+	in  float4    uSurfNorm	    : TEXCOORD3,		// N = normal at object surface (world coords)	
+
+	out	float4    oColor		: COLOR,	
+	
+	uniform float3    uCameraFrom,	
+	uniform float3	  uLightFrom,	
+	uniform float3    uLightTo,
+	uniform float3    uLightClr,
+	uniform float	  uLightAngle,		
+	uniform	sampler2D uTexture,
+	uniform float3	  uParams
+	)
+{
+	float3 uN = normalize ( uSurfNorm.xyz );				// N = surface normal (world coords)
+	float3 uV = normalize ( uCameraFrom - uSurfPos.xyz );	// V = view direction
+	float3 dist = uLightFrom - uSurfPos.xyz;
+	float3 uL = normalize ( dist );	// L = light direction from surface  
+	//float3 uH = normalize ( uL + uV );						// H = half angle
+	float3 uLD = uLightTo;//normalize ( uLightFrom - uLightTo );		// D = light direction (to light target)
+
+	// Phong illumination
+	float diff = saturate( dot( uN.xyz, uL ));					// diff = N dot L
+
+	float t = length(dist*.005);
+	diff /= t*t+1.0;
+
+	oColor = iColor;// * diff;
+}

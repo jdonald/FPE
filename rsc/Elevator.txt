@@ -1,0 +1,103 @@
+/O
+ x 40 230 52
+ M
+  c 159 182 223
+  v -25 -25 0 /0
+  v  25 -25 0 /1
+  v  25  25 0 /2
+  v -25  25 0 /3
+  v -25 -25 50 /4
+  v  25 -25 50 /5
+  v  25  25 50 /6
+  v -25  25 50 /7
+
+  v -15 -25 0  /8
+  v  15 -25 0  /9
+  v  15 -25 40 /10
+  v -15 -25 40 /11
+
+  v -15 -27.5  0 /12
+  v  15 -27.5  0 /13
+  v  15 -27.5 40 /14
+  v -15 -27.5 40 /15
+
+  t 0 1 2  t 2 3 0 /floor
+  t 4 7 6  t 6 5 4 /ceiling
+  t 3 6 7  t 3 2 6 /back wall
+  t 0 3 7  t 7 4 0 /left wall
+  t 2 1 5  t 5 6 2 /right wall
+
+  /outerface
+  q 3 2 1 0 /floor
+  q 5 6 7 4 /ceiling
+  t 7 6 3 t 6 2 3 /back wall
+  q 4 7 3 0 /left wall
+  q 6 5 1 2 /right wall
+
+  t 1 9 10 t 10 5 1  /door way
+  t 5 10 4 t 10 11 4
+  t 8 0 4  t 4 11 8
+
+  /outerface
+  q 5 10 9 1  /door way
+  t 4 10 5 t 4 11 10
+  q 11 4 0 8
+
+  t 12 8 11  t 11 15 12 /l lip
+  t 9 13 14  t 14 10 9  /r lip
+  t 12 13 9  t 9 8 12   /bottom lip
+  t 11 10 14  t 14 15 11 /top lip
+ }
+ C /floor
+  f u 0 1 0  r 1 0 0
+  v -30 -30
+  v  30 -30
+  v  30  30
+  v -30  30
+ }
+ C /ceiling
+  x 0 0 50
+  c u 0 -1 0  r 1 0 0
+  v -30 -30
+  v  30 -30
+  v  30  30
+  v -30  30
+ }
+ C /back wall
+  x 0 25 25
+  u 0 0 1  r 1 0 0
+  v -25 -25
+  v  25 -25
+  v  25  25
+  v -25  25
+ }
+ C /left wall
+  x -25 0 25
+  u 0 0 1  r 0 1 0
+  v -25 -25
+  v  25 -25
+  v  25  25
+  v -25  25
+ }
+ C /right wall
+  x 25 0 25
+  u 0 0 1  r 0 -1 0
+  v -25 -25
+  v  25 -25
+  v  25  25
+  v -25  25
+ }
+ C /entry wall
+  x 0 -25 0
+  u 0 0 1  r -1 0 0
+  v -25 0
+  v 25 0
+  v 25 50
+  v -25 50
+  h
+  v -15 0  m 1 0
+  v 15 0   m -1 0
+  v 15 40  m -1 0
+  v -15 40 m 1 0
+ }
+}

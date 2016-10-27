@@ -1,0 +1,33 @@
+void main (
+	in	float4	  iPosLocal	: POSITION,
+	in	float3    iNormLocal : NORMAL,
+	in  float2    iTexCoord : TEXCOORD0,
+	in  float4	  iColor	: COLOR,
+	
+	out	float4    oColor	: COLOR,
+	out float4	  oPos		: POSITION,
+	out float2    oTexCoord : TEXCOORD0,
+	out float4    oTexProj  : TEXCOORD1,
+	out	float4    oSurfPos	: TEXCOORD2,
+	out	float4    oSurfNorm : TEXCOORD3,
+	
+	uniform	float4x4  uModelViewProj,
+	uniform float4x4  uModel,
+	uniform float3	  uLightFrom			//special to shadow_vert
+	)
+{
+  oSurfPos = mul( uModel, iPosLocal );
+  oSurfNorm = mul( uModel, float4(iNormLocal, 0.0) );
+
+  float4 lightDirection = float4(uLightFrom, 1.0) - oSurfPos;
+  if( dot(oSurfNorm, lightDirection) < 0.0 )
+	iPosLocal -= lightDirection * 999999.0;
+	//oSurfPos -= lightDirection * 999999.0;
+
+  oPos = mul( uModelViewProj, iPosLocal );  
+  //oPos = mul( uModelViewProj, oSurfPos );  
+
+
+  oTexCoord = iTexCoord;
+  oColor = iColor;
+}

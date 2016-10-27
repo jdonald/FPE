@@ -1,0 +1,13 @@
+/w
+ o f room.txt }
+ o f stairs.txt }
+ o f desk.txt }
+ o f cube.txt }
+ o f cube.txt x -27 3 10 }
+ o f balcony.txt }
+ o f dataDyne.txt }
+ ls  p -100 -50 98  d 0 0 50  a 60 }
+ ls  p 0 -100 50  d 0 200 0  a 180 }
+ ls  c 1 .8 .6  p 0 0 35  d 0 -50 20  a 180 }
+ ls  c .6 .8 1  p 0 100 35  d -200 100 50  a 180 }
+}

@@ -1,0 +1,15 @@
+void main (
+	in	float4    iColor		: COLOR,	
+	in	float2    iTexCoord		: TEXCOORD0,
+	in	float4    iTexProj		: TEXCOORD1,
+	in	float4    uSurfPos		: TEXCOORD2,		// P = position on object surface (world coords)
+	in  float4    uSurfNorm	    : TEXCOORD3,		// N = normal at object surface (world coords)	
+
+	out	float4    oColor		: COLOR,	
+	
+	//uniform float3    uCameraFrom,	
+	uniform float3	  uParams
+	)
+{
+	oColor = float4( 0, 0, 0, 1.0 );
+}
